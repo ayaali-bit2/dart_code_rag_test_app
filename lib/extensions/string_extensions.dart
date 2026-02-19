@@ -1,3 +1,3 @@
 extension StringExtensions on String {
-  bool get isValidEmail => contains("@");
+  bool get isValidEmail => contains("@") && contains('.');
 }
