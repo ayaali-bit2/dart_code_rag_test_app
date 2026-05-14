@@ -1,23 +1,25 @@
-import '../models/user.dart';
+import 'package:dart_code_rag_test_app/contracts/repository.dart';
+import 'package:dart_code_rag_test_app/mixins/logger_mixin.dart';
+import 'package:dart_code_rag_test_app/models/user.dart';
 
-abstract class Repository<T> {
-  void save(T item);
-}
-
-class UserService implements Repository<User> {
+class UserService with LoggerMixin implements Repository<User> {
   final List<User> _users = [];
 
   @override
   void save(User user) {
     _users.add(user);
+    log('Saved user ${user.id}');
   }
 
- User? findById(String id) {
-  try {
-    return _users.firstWhere((u) => u.id == id);
-  } catch (e) {
+  User? findById(String id) {
+    for (final user in _users) {
+      if (user.id == id) {
+        log('Found user $id');
+        return user;
+      }
+    }
+
+    log('User not found: $id');
     return null;
   }
-}
-
 }
