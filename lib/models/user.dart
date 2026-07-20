@@ -9,4 +9,8 @@ class User {
   }
 
   String get displayName => "$name ($id)";
+
+  void printUser() {
+    print(displayName);
+  }
 }
